@@ -1,0 +1,56 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "repository": "git@github.com:ignitialio/iio-svc-template.git",
+  "author": "Victor Andritoiu <devandrito@gmail.com>",
+  "keywords": [
+    "microservice",
+    "service discovery",
+    "api gateway",
+    "serverless",
+    "streaming",
+    "data pipes",
+    "micro-service",
+    "access control"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "client:serve": "vue-cli-service serve",
+    "client:build": "vue-cli-service build",
+    "server:start": "node ./server/index.js",
+    "dev:standalone": "npm-run-all --parallel server:start client:serve",
+    "dev:start": "./scripts/dev_start.sh",
+    "dev:stop": "./scripts/dev_clean.sh",
+    "prod:start": "./scripts/prod_start.sh",
+    "prod:stop": "./scripts/prod_clean.sh",
+    "docker:build": "docker build --rm -t ignitial/auth . && docker tag ignitial/auth registry.ignitial.io/ignitial/auth:${npm_package_version}",
+    "docker:publish": "npm run build:image  && docker push registry.ignitial.io/ignitial/auth:${npm_package_version}"
+  },
+  "dependencies": {
+    "@ignitial/iio-services": "^2.1.5",
+    "bcryptjs": "^2.4.3",
+    "core-js": "^2.6.9",
+    "jsonwebtoken": "^8.5.1",
+    "pino": "^5.12.6"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-service": "^3.8.3",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.21.0",
+    "sass-loader": "^7.1.0",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10",
+    "webpack-dev-server": "^3.5.1"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
