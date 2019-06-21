@@ -48,11 +48,13 @@ module.exports = {
         'delete:any': [ '*' ]
       },
       user: {
+        'create:own': [ '*' ],
         'read:any': [ '*' ],
         'update:any': [ '*' ],
         'delete:any': [ '*' ]
       },
       anonymous: {
+        'update:any': [ '*' ],
         'read:any': [ '*' ]
       }
     },

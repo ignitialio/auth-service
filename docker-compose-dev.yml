@@ -6,6 +6,7 @@ services:
     container_name: auth
     volumes:
       - ${PWD}/server:/opt/auth/server
+      - ${PWD}/node_modules:/opt/auth/node_modules
     ports:
       - ${IIOS_DOCKER_EXPORTED_PORTS}
     environment:

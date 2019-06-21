@@ -35,4 +35,19 @@ global.iios_auth = function(Vue) {
       }
     }
   ])
+
+  let onServiceDestroy = () => {
+    Vue.prototype.$services.emit('app:menu:remove', [
+      {
+        path: '/signin'
+      },
+      {
+        path: '/signup'
+      }
+    ])
+
+    Vue.prototype.$services.emit('service:destroy:auth:done')
+  }
+
+  Vue.prototype.$services.once('service:destroy:auth', onServiceDestroy)
 }

@@ -20,7 +20,13 @@ class Auth extends Gateway {
 
         let query = {}
         query[this._options.data.idName] = username
-        let user = await this.api[usersServiceName].dGet(query)
+
+        // must add userId in order to trig privileged flag check
+        let user = await this.api[usersServiceName].dGet(query, {
+          $userId: null,
+          $privileged: true
+        })
+
         if (!user) {
           reject(new Error('bad username'))
           return
@@ -44,6 +50,7 @@ class Auth extends Gateway {
           reject(new Error('bad password'))
         }
       } catch (err) {
+        console.log(err)
         reject(new Error('bad username'))
       }
     })
@@ -51,6 +58,7 @@ class Auth extends Gateway {
 
   _checkToken(token) {
     return new Promise((resolve, reject) => {
+      console.log('TOKEN', token)
       jwt.verify(token, this._options.jwt.secret, (err, decoded) => {
         if (err) {
           reject(err)
@@ -61,7 +69,9 @@ class Auth extends Gateway {
     })
   }
 
+  /* get user info from token */
   authenticate(token) {
+    // @_GET_
     return new Promise((resolve, reject) => {
       this._checkToken(token).then(decoded => {
         resolve(decoded)
@@ -72,14 +82,16 @@ class Auth extends Gateway {
     })
   }
 
+  /* let caller know if user is authenticated and can proceed */
   authorize(token) {
+    // @_GET_
     return new Promise((resolve, reject) => {
       this._checkToken(token).then(decoded => {
         if (!decoded) {
           reject(new Error('failed to authorize'))
         }
 
-        resolve(utils.getByPath(decoded.user, this._options.data.idName))
+        resolve(utils.getByPath(decoded, this._options.data.idName))
       }).catch(err => {
         pino.error(err, 'authorize failed')
         reject(err)
@@ -110,7 +122,10 @@ class Auth extends Gateway {
 
         utils.setByPath(user, this._options.data.pwdName, hash)
 
-        let response = await this.api[usersServiceName].dPut(user)
+        let response = await this.api[usersServiceName].dPut(user, {
+          $userId: null,
+          $privileged: true
+        })
 
         resolve(response)
       } catch (err) {
@@ -120,6 +135,7 @@ class Auth extends Gateway {
   }
 
   chpwd(password, newPassword, grants) {
+    // @_PUT_
     return new Promise(async (resolve, reject) => {
       try {
         let query = {}
@@ -136,7 +152,10 @@ class Auth extends Gateway {
 
         utils.setByPath(user, this._options.data.pwdName, hash)
 
-        let response = await this.api[usersServiceName].dPut(user)
+        let response = await this.api[usersServiceName].dPut(user, {
+          $userId: null,
+          $privileged: true
+        })
 
         resolve(response)
       } catch (err) {

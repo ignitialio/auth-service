@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div :id="id" class="login-layout">
+    <div :id="id" class="signin-layout" @keyup.enter="handleSubmit">
       <div v-if="ready" class="tw-w-screen tw-h-screen
         tw-flex tw-flex-col tw-justify-center tw-items-center">
         <ig-paper class="md:tw-w-1/4 tw-h-1/4
@@ -20,8 +20,8 @@
               tw-shadow active:tw-shadow-none
               tw-rounded"
               :class="{ 'tw-opacity-50': !validationAuthorized }"
-              :disabled="!validationAuthorized"
-              @click="handleApplyClick">
+              :disabled="!validationAuthorized" type="submit"
+              @click="handleSubmit">
               {{ $t('Apply') }}</button>
             <button class="focus:tw-outline-none tw-m-2 tw-p-1 tw-px-4
               tw-text-sm
@@ -52,7 +52,7 @@ export default {
     }
   },
   methods: {
-    handleApplyClick() {
+    handleSubmit() {
       this.$services.auth.signin(this.username, this.password).then(token => {
         this.$services.emit('signin', token)
         console.log(token)
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style>
-.login-layout {
+.signin-layout {
   width: 100%;
   height: calc(100% - 0px);
 }
