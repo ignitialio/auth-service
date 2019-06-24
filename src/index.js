@@ -13,7 +13,6 @@ global.iios_auth = function(Vue) {
 
   Vue.prototype.$services.emit('app:menu:add', [
     {
-      path: '/signin',
       title: 'Sign in',
       icon: 'lock_outline',
       anonymousAccess: true,
@@ -24,7 +23,6 @@ global.iios_auth = function(Vue) {
       }
     },
     {
-      path: '/signup',
       title: 'Sign up',
       icon: 'lock_outline',
       anonymousAccess: true,

@@ -58,7 +58,7 @@ class Auth extends Gateway {
 
   _checkToken(token) {
     return new Promise((resolve, reject) => {
-      console.log('TOKEN', token)
+      // console.log('TOKEN', token)
       jwt.verify(token, this._options.jwt.secret, (err, decoded) => {
         if (err) {
           reject(err)
