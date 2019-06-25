@@ -25,8 +25,9 @@
     "dev:stop": "./scripts/dev_clean.sh",
     "prod:start": "./scripts/prod_start.sh",
     "prod:stop": "./scripts/prod_clean.sh",
-    "docker:build": "docker build --rm -t ignitial/auth . && docker tag ignitial/auth registry.ignitial.io/ignitial/auth:${npm_package_version}",
-    "docker:publish": "npm run build:image  && docker push registry.ignitial.io/ignitial/auth:${npm_package_version}"
+    "docker:build": "docker build --rm -t ignitial/auth . && docker tag ignitial/auth registry.ignitial.io/ignitial/auth && docker tag ignitial/auth registry.ignitial.io/ignitial/auth:${npm_package_version} && docker tag ignitial/auth ignitial/auth:${npm_package_version}",
+    "docker:publish:private": "docker push registry.ignitial.io/ignitial/auth && docker push registry.ignitial.io/ignitial/auth:${npm_package_version}",
+    "docker:publish:public": "docker push ignitial/auth && docker push ignitial/auth:${npm_package_version}"
   },
   "dependencies": {
     "@ignitial/iio-services": "^2.2.2",
