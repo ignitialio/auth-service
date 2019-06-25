@@ -2,6 +2,7 @@
   "name": "auth-service",
   "version": "1.0.0",
   "main": "server/index.js",
+  "private": true,
   "repository": "git@github.com:ignitialio/iio-svc-template.git",
   "author": "Victor Andritoiu <devandrito@gmail.com>",
   "keywords": [
