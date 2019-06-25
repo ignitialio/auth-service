@@ -1,1 +1,7 @@
 .git/
+scripts/
+node_modules/
+test/
+docker-compose.yml
+docker-compose-dev.yml
+Dockerfile

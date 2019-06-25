@@ -1,5 +1,7 @@
 # auth: Ignitial.io service
 
+Provides basic authentication for IgnitialIO web apps.
+
 ## Work with the repository
 
 The following _npm run_ targets are available:  
@@ -22,6 +24,11 @@ Add server files in the _server_ folder and client ones in _src_.
 
 You can add any dependency thanks to _npm_. The only constraint is to have
 dependencies that work with webpack, if used client side.
+
+## Use
+
+Build service image and deploy it in the context of your need (web application
+  deploy, in this case).
 
 ## Testing
 
