@@ -109,14 +109,13 @@ module.exports = {
         'Provides IIOS standard authentication method':  [
           'Fournit la méthode d\'autentification dtandard d\'IIOS'
         ],
-        'Username': [
-          'Nom d\'utilisateur'
-        ],
-        'Password': [
-          'Mot de passe'
-        ],
+        'Username': [ 'Nom d\'utilisateur', 'Nombre de usuario' ],
+        'Password': [ 'Mot de passe', 'Contraseña' ],
         'Sign in': [ 'Se connecter', 'Conectarse' ],
-        'Sign up': [ 'S\'inscrire', 'Registrarse' ]
+        'Sign up': [ 'S\'inscrire', 'Registrarse' ],
+        'Password confirm': [ 'Confirmation du mot de passe', 'Confirmar contraseña' ],
+        'Passwords do not match': [ 'Les mots de passe ne correspondent pas', 'Las contraseñas no coinciden' ],
+        'At least 8 characters': [ 'Minimum 8 caractères', 'Mínimo 8 caracteres' ],
       },
       /* service title */
       title: 'Authentication service',

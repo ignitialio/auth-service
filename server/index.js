@@ -163,6 +163,11 @@ class Auth extends Gateway {
       }
     })
   }
+
+  role(userId, grants) {
+    // @_GET_
+    return this._ac.getUserRole(userId)
+  }
 }
 
 // instantiate service with its configuration
