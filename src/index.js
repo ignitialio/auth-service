@@ -13,22 +13,12 @@ global.iios_auth = function(Vue) {
 
   Vue.prototype.$services.emit('app:menu:add', [
     {
-      title: 'Sign in',
-      icon: 'lock_outline',
-      anonymousAccess: true,
-      hideIfLogged: true,
-      route: {
-        path: '/signin',
-        component: SignIn
-      }
-    },
-    {
       title: 'Sign up',
       icon: 'lock_outline',
       anonymousAccess: true,
       hideIfLogged: true,
       route: {
-        path: '/signin',
+        path: '/signup',
         component: SignUp
       }
     }
@@ -36,9 +26,6 @@ global.iios_auth = function(Vue) {
 
   let onServiceDestroy = () => {
     Vue.prototype.$services.emit('app:menu:remove', [
-      {
-        path: '/signin'
-      },
       {
         path: '/signup'
       }
