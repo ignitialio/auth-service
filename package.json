@@ -1,6 +1,6 @@
 {
   "name": "auth-service",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "server/index.js",
   "private": true,
   "repository": "git@github.com:ignitialio/iio-svc-template.git",
@@ -26,22 +26,23 @@
     "prod:start": "./scripts/prod_start.sh",
     "prod:stop": "./scripts/prod_clean.sh",
     "docker:build": "docker build --rm -t ignitial/auth . && docker tag ignitial/auth registry.ignitial.io/ignitial/auth && docker tag ignitial/auth registry.ignitial.io/ignitial/auth:${npm_package_version} && docker tag ignitial/auth ignitial/auth:${npm_package_version}",
-    "docker:publish:private": "docker push registry.ignitial.io/ignitial/auth && docker push registry.ignitial.io/ignitial/auth:${npm_package_version}",
-    "docker:publish:public": "docker push ignitial/auth && docker push ignitial/auth:${npm_package_version}"
+    "docker:publish:private": "npm run docker:build && docker push registry.ignitial.io/ignitial/auth && docker push registry.ignitial.io/ignitial/auth:${npm_package_version}",
+    "docker:publish:public": "npm run docker:build && docker push ignitial/auth && docker push ignitial/auth:${npm_package_version}",
+    "docker:publish:minikube": "eval $(minikube docker-env) && npm run docker:build"
   },
   "dependencies": {
-    "@ignitial/iio-services": "^2.2.3",
+    "@ignitial/iio-services": "^2.2.5",
     "bcryptjs": "^2.4.3",
     "core-js": "^2.6.9",
     "jsonwebtoken": "^8.5.1",
-    "pino": "^5.12.6"
+    "pino": "^5.13.4"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.9.2",
-    "@vue/cli-service": "^3.9.2",
+    "@vue/cli-plugin-babel": "^3.12.0",
+    "@vue/cli-service": "^3.12.0",
     "npm-run-all": "^4.1.5",
-    "sass": "^1.22.5",
-    "sass-loader": "^7.1.0",
+    "sass": "^1.23.0",
+    "sass-loader": "^7.3.1",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
   },
