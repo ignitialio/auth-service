@@ -1,15 +1,15 @@
 
 // REDIS configuration
 // -----------------------------------------------------------------------------
-const REDIS_PORT = process.env.REDIS_PORT ? parseInt(process.env.REDIS_PORT) : 6379
-const REDIS_DB = process.env.REDIS_DB ? parseInt(process.env.REDIS_DB) : 0
-let REDIS_SENTINELS
+const IIOS_REDIS_PORT = process.env.IIOS_REDIS_PORT ? parseInt(process.env.IIOS_REDIS_PORT) : 6379
+const IIOS_REDIS_DB = process.env.IIOS_REDIS_DB ? parseInt(process.env.IIOS_REDIS_DB) : 0
+let IIOS_REDIS_SENTINELS
 
-if (process.env.REDIS_SENTINELS) {
-  REDIS_SENTINELS = []
-  let sentinels = process.env.REDIS_SENTINELS.split(',')
+if (process.env.IIOS_REDIS_SENTINELS) {
+  IIOS_REDIS_SENTINELS = []
+  let sentinels = process.env.IIOS_REDIS_SENTINELS.split(',')
   for (let s of sentinels) {
-    REDIS_SENTINELS.push({ host: s.split(':')[0], port: s.split(':')[1] })
+    IIOS_REDIS_SENTINELS.push({ host: s.split(':')[0], port: s.split(':')[1] })
   }
 }
 
@@ -17,22 +17,22 @@ if (process.env.REDIS_SENTINELS) {
 // -----------------------------------------------------------------------------
 module.exports = {
   /* service name */
-  name: process.env.SERVICE_NAME || 'auth',
+  name: process.env.IIOS_SERVICE_NAME || 'auth',
   /* service namesapce */
   namespace: process.env.IIOS_NAMESPACE || 'ignitialio',
   /* heartbeat */
-  heartbeatPeriod: 5000,
+  heartbeatPeriod: process.env.IIOS_HEARTBEAT_PERIOD || 5000,
   /* PUB/SUB/KV connector */
   connector: {
     /* redis server connection */
     redis: {
       /* encoder to be used for packing/unpacking raw messages */
-      encoder: process.env.ENCODER || 'bson',
-      master: process.env.REDIS_MASTER || 'mymaster',
-      sentinels: REDIS_SENTINELS,
-      host: process.env.REDIS_HOST,
-      port: REDIS_PORT,
-      db: REDIS_DB
+      encoder: process.env.IIOS_ENCODER_ || 'bson',
+      master: process.env.IIOS_REDIS_MASTER || 'mymaster',
+      sentinels: IIOS_REDIS_SENTINELS,
+      host: process.env.IIOS_REDIS_HOST,
+      port: IIOS_REDIS_PORT,
+      db: IIOS_REDIS_DB
     }
   },
   /* access control: if present, acces control enabled */
@@ -63,10 +63,10 @@ module.exports = {
     connector: {
       /* redis server connection */
       redis: {
-        master: process.env.REDIS_MASTER || 'mymaster',
-        sentinels: REDIS_SENTINELS,
-        host: process.env.REDIS_HOST,
-        port: REDIS_PORT,
+        master: process.env.IIOS_REDIS_MASTER || 'mymaster',
+        sentinels: IIOS_REDIS_SENTINELS,
+        host: process.env.IIOS_REDIS_HOST,
+        port: IIOS_REDIS_PORT,
         db: 1,
         ipFamily: 4
       }
