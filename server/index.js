@@ -134,25 +134,22 @@ class Auth extends Gateway {
     })
   }
 
-  chpwd(password, newPassword, grants) {
+  chpwd(newPassword, grants) {
     // @_PUT_
     return new Promise(async (resolve, reject) => {
       try {
+        let usersServiceName = this._options.data.service + ':' +
+          this._options.data.usersCollectionName
         let query = {}
         query[this._options.data.idName] = grants.$userId
-        let user = await this.api[usersServiceName].dGet(query)
-        if (!user) {
-          reject(new Error('bad username'))
-          return
-        }
 
         // compute password hash
         let salt = bcrypt.genSaltSync(10)
         let hash = bcrypt.hashSync(newPassword, salt)
 
-        utils.setByPath(user, this._options.data.pwdName, hash)
-
-        let response = await this.api[usersServiceName].dPut(user, {
+        let response = await this.api[usersServiceName].dUpdate(query, {
+          'login.password': hash
+        }, {
           $userId: null,
           $privileged: true
         })
